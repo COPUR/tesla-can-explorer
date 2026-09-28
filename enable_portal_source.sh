@@ -17,11 +17,11 @@ Usage:
     [--set-default]
 
 Example:
-  ./can_re/enable_portal_source.sh \
+  ./enable_portal_source.sh \
     --source-key modelsx_amd \
     --label "Model S/X MCU3 (AMD)"
 
-  ./can_re/enable_portal_source.sh \
+  ./enable_portal_source.sh \
     --source-key modelsx_amd \
     --label "Model S/X MCU3 (AMD)" \
     --set-default
@@ -66,6 +66,13 @@ done
 if [[ -z "${SOURCE_KEY}" || -z "${LABEL}" ]]; then
   echo "Missing required arguments." >&2
   usage
+  exit 1
+fi
+
+# The key is written into app.js as an unquoted object key, so it must be a
+# valid JS identifier (and match the DATA_SOURCES parser below).
+if [[ ! "${SOURCE_KEY}" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
+  echo "Invalid --source-key '${SOURCE_KEY}': use letters, digits and underscores only, not starting with a digit." >&2
   exit 1
 fi
 

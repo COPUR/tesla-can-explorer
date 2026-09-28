@@ -344,7 +344,9 @@ function ensureSelectedFrame() {
   }
   state.selectedKey = state.filteredFrames[0].__key;
   state.signalPage = 1;
+  state.signalQuery = "";
   state.expandedSignalKeys.clear();
+  els.signalSearch.value = "";
 }
 
 function renderFrameList() {
