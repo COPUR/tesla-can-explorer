@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tesla CAN Explorer</title>
     <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H6QTPY0Q7N"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6QTPY0Q7N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-H6QTPY0Q7N');
-</script>
+      gtag('config', 'G-H6QTPY0Q7N');
+    </script>
+  </head>
   <body>
     <div class="bg-orb bg-orb-a"></div>
     <div class="bg-orb bg-orb-b"></div>
@@ -62,7 +62,7 @@
           <span class="stat-label">Enum Values</span>
           <span class="stat-value" id="stat-values">-</span>
         </div>
-        <div class="stat">
+        <div class="stat" title="Signals annotated with a VAPI (ETH) alias">
           <span class="stat-label">VAPI Aliases</span>
           <span class="stat-value" id="stat-vapi">-</span>
         </div>
@@ -72,11 +72,20 @@
     <main class="layout">
       <aside class="panel panel-left">
         <div class="panel-head">
-          <h2>Frames</h2>
+          <h2 id="list-title">Frames</h2>
           <p id="frame-results">Loading...</p>
         </div>
 
         <div class="controls">
+          <div class="view-toggle" id="view-toggle" role="group" aria-label="Browse by">
+            <button type="button" data-view="frames" class="active" aria-pressed="true">
+              Frames
+            </button>
+            <button type="button" data-view="signals" aria-pressed="false">
+              Signals
+            </button>
+          </div>
+
           <label class="field">
             <span>Data Source</span>
             <select id="data-source"></select>
@@ -89,6 +98,8 @@
               type="search"
               placeholder="frame, address, signal, enum label"
               autocomplete="off"
+              aria-keyshortcuts="/"
+              title="Press / to focus"
             />
           </label>
 
@@ -110,7 +121,7 @@
           <div class="inline-fields">
             <label class="field checkbox-field">
               <input id="enumerated-only" type="checkbox" />
-              <span>Has Enumerated Signals</span>
+              <span id="enumerated-only-label">Has Enumerated Signals</span>
             </label>
             <label class="field">
               <span>Sort</span>
@@ -125,7 +136,7 @@
           </div>
         </div>
 
-        <div class="frame-list" id="frame-list"></div>
+        <div class="frame-list" id="frame-list" role="listbox" aria-label="Frames"></div>
       </aside>
 
       <section class="panel panel-right">
@@ -157,6 +168,15 @@
               <option value="500">500</option>
             </select>
           </label>
+          <button
+            id="export-csv"
+            type="button"
+            class="btn"
+            title="Download the signals matching the current signal search as CSV"
+            disabled
+          >
+            Export CSV
+          </button>
         </div>
 
         <div class="signal-pagination" id="signal-pagination"></div>

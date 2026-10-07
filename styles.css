@@ -391,8 +391,72 @@ select:disabled {
   padding: 10px 12px;
   border-bottom: 1px solid var(--line);
   display: grid;
-  grid-template-columns: 1fr 110px;
+  grid-template-columns: 1fr 110px auto;
+  align-items: end;
   gap: 8px;
+}
+
+.view-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-panel-solid);
+}
+
+.view-toggle button {
+  border: 0;
+  border-radius: 8px;
+  padding: 6px 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.view-toggle button.active {
+  background: rgba(232, 33, 39, 0.18);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px rgba(232, 33, 39, 0.5);
+}
+
+.btn {
+  border: 1px solid var(--line);
+  background: #1b1f26;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 160ms ease;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--line-strong);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.frame-item:focus-visible,
+.view-toggle button:focus-visible,
+.btn:focus-visible,
+.pager-buttons button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.signal-row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
 .signal-search {
@@ -476,6 +540,11 @@ select:disabled {
 
 .signal-row:hover {
   background: #1c232d;
+}
+
+.signal-row.focused {
+  background: rgba(43, 22, 25, 0.9);
+  box-shadow: inset 3px 0 0 var(--accent);
 }
 
 .signal-name {
